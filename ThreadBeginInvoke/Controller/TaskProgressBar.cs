@@ -28,10 +28,12 @@ namespace ThreadBeginInvoke.Controller
             Random random = new Random();
             for (int i = 0; i < count; i++)
             {
-                
-                number = random.Next(0,100);
-                ctx.Send(s=> pb.Value=number, null);
-               // Thread.Sleep(100);
+                lock (ctx)
+                {
+                    number = random.Next(0, 100);
+                    ctx.Send(s => pb.Value = number, null);
+                     Thread.Sleep(100);
+                }
                 
             }
 
